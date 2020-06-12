@@ -40,11 +40,24 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 - [ ] Explain the difference between `Relational Databases` and `SQL`.
 
+Database Management System (DBMS) is a software that is used to define, create and maintain a database and provides controlled access to the data. Relational Database Management System (RDBMS) is an advanced version of a DBMS.
+...
+Difference between RDBMS and DBMS:
+DBMS stores data as file <<>> RDBMS stores data in tabular form.
+
 - [ ] Why do tables need a `primary key`?
+
+1. A primary key is a table column that serves a special purpose. Each database table needs a primary key because it ensures row-level accessibility. If you choose an appropriate primary key, you can specify a primary key value, which lets you query each table row individually and modify each row without altering other rows in the same table. The values that compose a primary key column are unique.
 
 - [ ] What is the name given to a table column that references the primary key on another table.
 
+Foreign key
+
 - [ ] What do we need in order to have a _many to many_ relationship between two tables.
+
+A many-to-many relationship occurs when multiple records in a table are associated with multiple records in another table.
+
+The Two tables has your Primary key, Foreign Key, And they have a table in the middle with a JOIN, that holds the two Foreign Keys.
 
 ## Minimum Viable Product
 
