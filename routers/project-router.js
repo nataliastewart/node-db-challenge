@@ -1,6 +1,6 @@
 const express = require("express");
 
-const db = require("../connection"); //<<<<<<<< connection
+const NewProject = require("./project-model");
 
 const router = express.Router();
 
@@ -8,7 +8,7 @@ const router = express.Router();
 
 //-----------GET projects---------
 router.get("/", (req, res) => {
-  db("project")
+  NewProject.find()
     .then((projects) => {
       res.json(projects);
     })
@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const { id } = req.params;
 
-  db("project")
+  NewProject.findById(id)
     .where({ id })
     .first()
     .then((project) => {
@@ -35,8 +35,8 @@ router.get("/:id", (req, res) => {
 //---------POST / INSERT project---/
 router.post("/", (req, res) => {
   const newProject = req.body;
-  db("project")
-    .insert(newProject)
+
+  NewProject.add(newProject)
     .then((project) => {
       res.status(201).json(project);
     })
@@ -47,42 +47,42 @@ router.post("/", (req, res) => {
 });
 
 //------PUT/UPDATE project -----//
-router.put("/:id", (req, res) => {
-  const { id } = req.params;
-  const changes = req.body;
+// router.put("/:id", (req, res) => {
+//   const { id } = req.params;
+//   const changes = req.body;
 
-  db("project")
-    .where({ id })
-    .update(changes)
-    .then((count) => {
-      if (count >= 0) {
-        res.status(200).json({ message: "project updated successfully" });
-      } else {
-        res.status(404).json({ message: "no project updated or found" });
-      }
-    })
-    .catch((error) => {
-      console.log("PUT / error", error);
-    });
-});
+//   db("project")
+//     .where({ id })
+//     .update(changes)
+//     .then((count) => {
+//       if (count >= 0) {
+//         res.status(200).json({ message: "project updated successfully" });
+//       } else {
+//         res.status(404).json({ message: "no project updated or found" });
+//       }
+//     })
+//     .catch((error) => {
+//       console.log("PUT / error", error);
+//     });
+// });
 
 //----------DELETE project by ID----//
-router.delete("/:id", (req, res) => {
-  const { id } = req.params;
-  db("project")
-    .where({ id }) // if not using a where, all records will be removed
-    .del() // <----- don't forget this part
-    .then((count) => {
-      if (count > 0) {
-        res.status(200).json({ message: "project deleted successfully" });
-      } else {
-        res.status(404).json({ message: "no projects found" });
-      }
-    })
-    .catch((error) => {
-      console.log("DELETE / error", error);
-      res.status(500).json({ message: error.message });
-    });
-});
+// router.delete("/:id", (req, res) => {
+//   const { id } = req.params;
+//   db("project")
+//     .where({ id }) // if not using a where, all records will be removed
+//     .del() // <----- don't forget this part
+//     .then((count) => {
+//       if (count > 0) {
+//         res.status(200).json({ message: "project deleted successfully" });
+//       } else {
+//         res.status(404).json({ message: "no projects found" });
+//       }
+//     })
+//     .catch((error) => {
+//       console.log("DELETE / error", error);
+//       res.status(500).json({ message: error.message });
+//     });
+// });
 
 module.exports = router;
